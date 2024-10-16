@@ -5,7 +5,8 @@ void rempliretu(int numetu[], int refetu[], float notes[])
 //refetu: reference de stage
 //notes: notes finale
 {   
-    int i;
+    int i,a,b;
+    float n;
     FILE *flot;
     flot=fopen("etudiants.txt", "w");
     if (flot==NULL)
@@ -13,7 +14,7 @@ void rempliretu(int numetu[], int refetu[], float notes[])
         printf("Probleme d'ouverture de fichier");
         return -1;
     }
-    fscanf(flot,"")
+    fscanf(flot,"%d %d %f",&a,&b,&n);
     while (!feof)
     {
         printf("tableau rempli");
