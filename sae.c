@@ -1,24 +1,33 @@
 #include "sae.h"
 
-void remplirtableau(int etu[], int stage[])
+void rempliretu(int numetu[], int refetu[], float notes[])
+//numetu: numero etudiant
+//refetu: reference de stage
+//notes: notes finale
 {   
     int i;
-    FILE *flot, *stage;
-    flot=fopen("etudiants.txt", "r");
+    FILE *flot;
+    flot=fopen("etudiants.txt", "w");
     if (flot==NULL)
     {
         printf("Probleme d'ouverture de fichier");
         return -1;
     }
+    fscanf(flot,"")
+    while (!feof)
+    {
+        printf("tableau rempli");
+    }   
+}
+
+void remplirstage(int refstage[], int dp[])
+{
+    FILE *stage;
     stage=fopen("stage.txt","w");
     if (stage==NULL)
     {
         printf("Probleme d'ouverture de fichier");
         return -1;
     }
-    while ()
-    {
-        
-    }
-    
+
 }
