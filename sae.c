@@ -5,7 +5,7 @@ void Affichage(void)
 
 }
 
-int rempliretu(int numEtu[], int refEtu[], float notes[], int tmax) 
+int rempliretu(int numEtu[], int refStageEtu[], float notes[], int tmax) 
 {
     int i=0, num, ref, nb=0;
     float note;
@@ -21,7 +21,7 @@ int rempliretu(int numEtu[], int refEtu[], float notes[], int tmax)
     {
         if (nb==tmax) {printf("Tableau trop petit."); return -1;}
         numEtu[i]=num;
-        refEtu[i]=ref;
+        refStageEtu[i]=ref;
         notes[i]=note;
         nb+=1;
         i+=1;
@@ -30,7 +30,7 @@ int rempliretu(int numEtu[], int refEtu[], float notes[], int tmax)
 }
 
 
-int remplirstage(int refstage[], int stageEtu[], int dpt[],int tmax)
+int remplirstage(int refStage[], int stageNumEtuCandid[], int stagePourvu[], int dpt[],int tmax)
 {
     int ref, dpt, i, dp, nb, inter, nbstage, stage1, stage2, stage3;
     FILE *stage;
@@ -47,50 +47,52 @@ int remplirstage(int refstage[], int stageEtu[], int dpt[],int tmax)
             return -2;
         }
 
-        refstage[i]=ref;
+        refStage[i]=ref;
         dpt[i]=dpt;
 
         fscanf(stage,"%d", &inter);
 
+        stagePourvu[i]=inter;
+
         if (inter==0) fscanf(stage, "%d", &nbstage);
 
         if (nbstage==1)
-            fscanf("%d", stageEtu[i]);
+            fscanf("%d", &stage1);
 
         if (nbstage==2){
                 fscanf(stage, "%d%d", &stage1, &stage2);
-                stageEtu[i]=0;
+                stageNumEtuCandid[i]=0;
             }
         if (nbstage==3){
                 fscanf(stage, "%d%d%d", &stage1, &stage2, &stage3);
-                stageEtu[i]=0;
+                stageNumEtuCandid[i]=0;
             }
-        refstage[i]=ref;
+        refStage[i]=ref;
         dpt[i]=dp;
         }
         
         fscanf(stage,"%d",&ref);
-        refstage[i]=ref;
+        refStage[i]=ref;
         nb++;
         i++;
         return nb;
 }
     
-int identifieretudiant(int numEtu[],int tmax) //identifier l'etudiant 
+int identifierEtudiant(int numEtu[],int tmax) //identifier l'etudiant 
 {
     int etu,i;
     printf("numero etudiant: ");
     scanf("%d",&etu);
     for(i=0;i<tmax;i++){
         if(etu==numEtu[i])
-        return etu;
+        return i;
     else printf("L'etudiant n'est pas reconnu!");
     }
     return -1;
 }
 
-int checkstage(int stageEtu[],int numEtu[], int tmax)
+int checkstage(int stageNumEtuCandid[],int numEtu[], int tmax)
 {
     int i,etu;
-    etu=identifieretudiant(numEtu,tmax);
+    etu = identifierEtudiant(numEtu,tmax);
 }
