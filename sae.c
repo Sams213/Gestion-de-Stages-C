@@ -89,8 +89,8 @@ int identifieretudiant(int numEtu[],int tmax) //identifier l'etudiant
     return -1;
 }
 
-int checkstage(int stageEtu[], int tmax)
+int checkstage(int stageEtu[],int numEtu[], int tmax)
 {
-    int i;
-    
+    int i,etu;
+    etu=identifieretudiant(numEtu,tmax);
 }
