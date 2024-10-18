@@ -1,34 +1,74 @@
 #include "sae.h"
 
-void rempliretu(int numetu[], int refetu[], float notes[])
-//numetu: numero etudiant
-//refetu: reference de stage
-//notes: notes finale
-{   
-    int i,a,b;
-    float n;
+void Affichage(void)
+{
+
+}
+
+int rempliretu(int numEtu[], int refEtu[], float notes[], int tmax) 
+{
+    int i=0, num, ref, nb=0;
+    float note;
     FILE *flot;
-    flot=fopen("etudiants.txt", "w");
+    flot=fopen("etudiants.txt", "r");
     if (flot==NULL)
     {
         printf("Probleme d'ouverture de fichier");
-        return -1;
+        return -2;
     }
-    fscanf(flot,"%d %d %f",&a,&b,&n);
+    fscanf(flot,"%d%d%f",&num,&ref,&note);
     while (!feof)
     {
-        printf("tableau rempli");
-    }   
+        if (nb==tmax) {printf("Tableau trop petit."); return -1;}
+        numEtu[i]=num;
+        refEtu[i]=ref;
+        notes[i]=note;
+        nb+=1;
+        i+=1;
+    }
+    return nb;
 }
 
-void remplirstage(int refstage[], int dp[])
+
+int remplirstage(int refstage[], int stageEtu[], int dpt[],int tmax)
 {
+    int ref, dpt, i, dp, nb, inter, nbstage, stage1, stage2, stage3;
     FILE *stage;
-    stage=fopen("stage.txt","w");
+    stage=fopen("stage.txt","r");
     if (stage==NULL)
     {
         printf("Probleme d'ouverture de fichier");
-        return -1;
+        return -2;
     }
+    fscanf(stage,"%d%d",&ref,&dpt);
+    while(!feof){
+        if(nb==tmax) {
+            printf("Tableau trop petit.\n");
+            return -2;
+        }
 
+        refstage[i]=ref;
+        dpt[i]=dpt;
+
+        fscanf(stage,"%d", &inter);
+
+        if (inter==0) fscanf(stage, "%d", &nbstage);
+
+        if (nbstage==1)
+            fscanf("%d", stageEtu[i]);
+
+        if (nbstage==2){
+                fscanf(stage, "%d%d", &stage1, &stage2);
+                stageEtu[i]=0;
+            }
+        refstage[i]=ref;
+        dpt[i]=dp;
+        }
+        
+        fscanf(stage,"%d",&ref);
+        refstage[i]=ref;
+        nb++;
+        i++;
+        return nb;
 }
+    
