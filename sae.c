@@ -61,6 +61,10 @@ int remplirstage(int refstage[], int stageEtu[], int dpt[],int tmax)
                 fscanf(stage, "%d%d", &stage1, &stage2);
                 stageEtu[i]=0;
             }
+        if (nbstage==3){
+                fscanf(stage, "%d%d%d", &stage1, &stage2, &stage3);
+                stageEtu[i]=0;
+            }
         refstage[i]=ref;
         dpt[i]=dp;
         }
@@ -72,3 +76,21 @@ int remplirstage(int refstage[], int stageEtu[], int dpt[],int tmax)
         return nb;
 }
     
+int identifieretudiant(int numEtu[],int tmax) //identifier l'etudiant 
+{
+    int etu,i;
+    printf("numero etudiant: ");
+    scanf("%d",&etu);
+    for(i=0;i<tmax;i++){
+        if(etu==numEtu[i])
+        return etu;
+    else printf("L'etudiant n'est pas reconnu!");
+    }
+    return -1;
+}
+
+int checkstage(int stageEtu[], int tmax)
+{
+    int i;
+    
+}
