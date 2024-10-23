@@ -1,5 +1,38 @@
 #include "sae.h"
 
+void printListI(int L[], int nb)
+{
+    int i;
+    for(i=0; i<nb; i++)
+    {
+        printf("%d\t", L[i]);
+    }
+    printf("\n");
+}
+
+void printListF(float notes[], int nb)
+{
+    int i;
+    for(i=0; i<nb; i++)
+    {
+        printf("%.2f\t",notes[i]);
+    }
+    printf("\n");
+}
+
+void printListLL(int (*L)[4], int nb)
+{
+    int i;
+    for(i=0; i<nb; i++)
+    {
+        for(int j=1; j<=L[i][0]; j++)
+        {
+            printf("%d\t",L[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 void Affichage(void)
 {
 
@@ -7,9 +40,9 @@ void Affichage(void)
 
 int rempliretu(int numEtu[], int refStageEtu[], float notes[], int tmax) 
 {
+    FILE *flot;
     int i=0, num, ref, nb=0;
     float note;
-    FILE *flot;
     flot=fopen("etudiants.txt", "r");
     if (flot==NULL)
     {
@@ -17,7 +50,7 @@ int rempliretu(int numEtu[], int refStageEtu[], float notes[], int tmax)
         return -2;
     }
     fscanf(flot,"%d%d%f",&num,&ref,&note);
-    while (!feof)
+    while (!feof(flot))
     {
         if (nb==tmax) {printf("Tableau trop petit."); return -1;}
         numEtu[i]=num;
@@ -25,14 +58,15 @@ int rempliretu(int numEtu[], int refStageEtu[], float notes[], int tmax)
         notes[i]=note;
         nb+=1;
         i+=1;
+        fscanf(flot,"%d%d%f",&num,&ref,&note);
     }
     return nb;
 }
 
 
-int remplirstage(int refStage[], int stageNumEtuCandid[], int stagePourvu[], int dpt[],int tmax)
+int remplirstage(int refStage[], int (*stageNumEtuCandid)[4], int stagePourvu[], int dpt[],int tmax)
 {
-    int ref, dpt, i, dp, nb, inter, nbstage, stage1, stage2, stage3;
+    int ref, i, dp, nb, inter, nbstage, stage1, stage2, stage3;
     FILE *stage;
     stage=fopen("stage.txt","r");
     if (stage==NULL)
@@ -40,15 +74,15 @@ int remplirstage(int refStage[], int stageNumEtuCandid[], int stagePourvu[], int
         printf("Probleme d'ouverture de fichier");
         return -2;
     }
-    fscanf(stage,"%d%d",&ref,&dpt);
-    while(!feof){
+    fscanf(stage,"%d%d",&ref,&dp);
+    while(!feof(stage)){
         if(nb==tmax) {
             printf("Tableau trop petit.\n");
             return -2;
         }
 
         refStage[i]=ref;
-        dpt[i]=dpt;
+        dpt[i]=dp;
 
         fscanf(stage,"%d", &inter);
 
@@ -57,15 +91,22 @@ int remplirstage(int refStage[], int stageNumEtuCandid[], int stagePourvu[], int
         if (inter==0) fscanf(stage, "%d", &nbstage);
 
         if (nbstage==1)
-            fscanf("%d", &stage1);
+            fscanf(stage,"%d", &stage1);
+            stageNumEtuCandid[i][0]=1;
+            stageNumEtuCandid[i][1]=stage1;
 
         if (nbstage==2){
                 fscanf(stage, "%d%d", &stage1, &stage2);
-                stageNumEtuCandid[i]=0;
+                stageNumEtuCandid[i][0]=2;
+                stageNumEtuCandid[i][1]=stage1;
+                stageNumEtuCandid[i][2]=stage2;
             }
         if (nbstage==3){
                 fscanf(stage, "%d%d%d", &stage1, &stage2, &stage3);
-                stageNumEtuCandid[i]=0;
+                stageNumEtuCandid[i][0]=3;
+                stageNumEtuCandid[i][1]=stage1;
+                stageNumEtuCandid[i][2]=stage2;
+                stageNumEtuCandid[i][3]=stage3;
             }
         refStage[i]=ref;
         dpt[i]=dp;
@@ -75,7 +116,7 @@ int remplirstage(int refStage[], int stageNumEtuCandid[], int stagePourvu[], int
         refStage[i]=ref;
         nb++;
         i++;
-        return nb;
+    return nb;
 }
     
 int identifierEtudiant(int numEtu[],int tmax) //identifier l'etudiant 
@@ -94,5 +135,5 @@ int identifierEtudiant(int numEtu[],int tmax) //identifier l'etudiant
 int checkstage(int stageNumEtuCandid[],int numEtu[], int tmax)
 {
     int i,etu;
-    etu = identifierEtudiant(numEtu,tmax);
+    etu = identifierEtudiant(numEtu,tmax);      
 }
