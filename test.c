@@ -17,12 +17,6 @@ void test(void)
 
 int main(void)
 {
-    int list[3][4] = {
-        {3, 10, 20, 30}, // 3 elements: 10, 20, 30
-        {2, 40, 50},     // 2 elements: 40, 50
-        {4, 60, 70, 80} // 4 elements: 60, 70, 80, 90
-    };
-
-    printListLL(list, 3); // Print 3 lists
+	test();
     return 0;
 }

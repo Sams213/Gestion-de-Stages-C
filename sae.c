@@ -47,12 +47,18 @@ int rempliretu(int numEtu[], int refStageEtu[], float notes[], int tmax)
     if (flot==NULL)
     {
         printf("Probleme d'ouverture de fichier");
+        fclose(flot);
         return -2;
     }
     fscanf(flot,"%d%d%f",&num,&ref,&note);
     while (!feof(flot))
     {
-        if (nb==tmax) {printf("Tableau trop petit."); return -1;}
+        if (nb==tmax) 
+        {
+            printf("Tableau trop petit.");
+            fclose(flot); 
+            return -1;
+        }
         numEtu[i]=num;
         refStageEtu[i]=ref;
         notes[i]=note;
@@ -60,6 +66,7 @@ int rempliretu(int numEtu[], int refStageEtu[], float notes[], int tmax)
         i+=1;
         fscanf(flot,"%d%d%f",&num,&ref,&note);
     }
+    fclose(flot);
     return nb;
 }
 
@@ -72,12 +79,14 @@ int remplirstage(int refStage[], int (*stageNumEtuCandid)[4], int stagePourvu[],
     if (stage==NULL)
     {
         printf("Probleme d'ouverture de fichier");
+        fclose(stage);
         return -2;
     }
     fscanf(stage,"%d%d",&ref,&dp);
     while(!feof(stage)){
         if(nb==tmax) {
             printf("Tableau trop petit.\n");
+            fclose(stage);
             return -2;
         }
 
@@ -88,7 +97,14 @@ int remplirstage(int refStage[], int (*stageNumEtuCandid)[4], int stagePourvu[],
 
         stagePourvu[i]=inter;
 
-        if (inter==0) fscanf(stage, "%d", &nbstage);
+        if (inter==0) 
+            {
+                fscanf(stage, "%d", &nbstage);
+            }
+
+        else {
+            
+        }
 
         if (nbstage==1)
             fscanf(stage,"%d", &stage1);
@@ -116,6 +132,7 @@ int remplirstage(int refStage[], int (*stageNumEtuCandid)[4], int stagePourvu[],
         refStage[i]=ref;
         nb++;
         i++;
+    fclose(stage);
     return nb;
 }
     
