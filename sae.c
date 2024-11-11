@@ -1,5 +1,47 @@
 #include "sae.h"
 
+int rechercheL(int L[], int element, int nb)
+{
+    int i = 0;
+    for (i; i < nb; i++)
+    {
+        if (L[i] > element)
+            return i;
+    }
+    return -1;
+}
+
+void decalerADroiteL(int L[], int *nb, int index, int element)
+{
+    if (index != -1)
+    {
+        for (int i = nb; i > index; i--)
+        {
+            L[i + 1] = L[i];
+        }
+        L[index] = element;
+        (*nb) += 1;
+    }
+    else
+    {
+        L[*nb] = element;
+        (*nb) += 1;
+    }
+}
+
+void decalerADroiteLL(int (*stages)[4], int index, int nb)
+{
+    if (index != -1)
+    {
+        for (int i = nb; i > index; i--)
+        {
+            memcpy(stages[i + 1], stages[i], 4 * sizeof(int));
+        }
+    }
+    else
+        ;
+}
+
 void printListI(int L[], int nb)
 {
     int i;
@@ -36,10 +78,6 @@ void printListLL(int (*L)[4], int nb)
     }
 }
 
-void Affichage(void)
-{
-}
-
 int rempliretu(int numEtu[], int refStageEtu[], float notes[], int tmax)
 {
     FILE *flot;
@@ -71,7 +109,7 @@ int rempliretu(int numEtu[], int refStageEtu[], float notes[], int tmax)
     return nb;
 }
 
-int remplirstage(int refStage[], int (*stageNumEtuCandid)[4], int stagePourvu[], int dpt[], int tmax, int numEtu[], int tmaxNumEtu, int compteur[])
+int remplirstage(int refStage[], int (*stageNumEtuCandid)[4], boolean stagePourvu[], int dpt[], int tmax, int numEtu[], int tmaxNumEtu, int compteur[])
 {
     int ref, i = 0, dp, nb = 0, inter, nbstage, stage1, stage2, stage3;
     FILE *stage;
@@ -91,15 +129,23 @@ int remplirstage(int refStage[], int (*stageNumEtuCandid)[4], int stagePourvu[],
             return -2;
         }
 
-        refStage[i] = ref;
+        int pos = rechercheL(refStage, ref, nb);
+        decalerADroiteL(refStage, &nb, pos, ref);
+        decalerADroiteLL(stageNumEtuCandid, pos, nb);
+
         dpt[i] = dp;
 
         fscanf(stage, "%d", &inter);
 
-        stagePourvu[i] = inter;
+        if (inter == 1)
+        {
+            stagePourvu[i] = true;
+            stageNumEtuCandid[i][0] = -1;
+        }
 
         if (inter == 0)
         {
+            stagePourvu[i] = false;
             fscanf(stage, "%d", &nbstage);
             if (nbstage == 1)
             {
@@ -129,11 +175,6 @@ int remplirstage(int refStage[], int (*stageNumEtuCandid)[4], int stagePourvu[],
                 compteurStageEtu(numEtu, compteur, stage3, tmaxNumEtu);
             }
         }
-
-        else /* inter=1 */
-        {
-            stageNumEtuCandid[i][0] = -1;
-        }
         fscanf(stage, "%d%d", &ref, &dp);
         i++;
         nb++;
@@ -150,41 +191,39 @@ int saisirEtu(void)
     return etu;
 }
 
-int identifierEtudiant(int numEtu[], int tmax, int etu)
+int identifier(int L[], int nb, int element)
 // identifier l'etudiant dans les donnes
 {
     int i = 0;
-    while (i < tmax)
+    while (i < nb)
     {
-        if (numEtu[i] == etu)
+        if (L[i] == element)
             return i;
 
-        if (numEtu[i + 1] > etu)
+        if (L[i + 1] > element)
         {
-            printf("L'etudiant n'est pas reconnu!");
             return -1;
         }
 
         i++;
     }
-    printf("L'etudiant n'est pas reconnu!");
     return -1;
 }
 
 void compteurStageEtu(int numEtu[], int compteur[], int etu, int tmax)
 {
     int i;
-    i = identifierEtudiant(numEtu, tmax, etu);
+    i = identifier(numEtu, tmax, etu);
     if (i != -1)
         compteur[i] += 1;
     else
-        printf("L'étudiant n'est pas reconnu //// compteurStageEtu");
+        printf("L'étudiant n'est pas reconnu /// compteurStageEtu");
 }
 
 int checkEtu3(int numEtu[], int compteur[], int tmax, int etu)
 {
     int i = 0;
-    i = identifierEtudiant(numEtu, tmax, etu);
+    i = identifier(numEtu, tmax, etu);
     if (compteur[i] < 3)
     {
         return 0;
@@ -193,29 +232,43 @@ int checkEtu3(int numEtu[], int compteur[], int tmax, int etu)
         return 1;
 }
 
-int stageDispo(int stagePourvu[], int refStages[], int (*stages)[4], int nbstage)
+int stageDispo(boolean stagePourvu[], int refStages[], int (*stages)[4], int nbstage)
 {
     int i = 0;
     while (i < nbstage)
     {
-        if (stagePourvu[i] == 0)
-            printf("%d", stages[i]);
-        if (stages[i][0]!=3)
-            printf(refStages[i]);
+        if (stagePourvu[i] == false && stages[i][0] < 3)
+            printf("%d\t", refStages[i]);
     }
 }
 
-void afecterStage(int etu) //affecte un stage a un etudiant
+void affecterStage(int refstage[], int refStageEtu[], int numEtu[], int nb, int (*stages)[4], boolean stagePourvu[]) // affecte un stage a un etudiant
 {
+    int etu, stage, i;
+    printf("A quel étudiant voulez-vous affecter un stage : ");
+    scanf("%d", &etu);
+    i = identifier(numEtu, nb, etu);
+    while (i = -1)
+    {
+        printf("L'étudiant n'est pas reconnu, veuillez réessayer avec un numéro d'étudiant correct.\nTapez -1 pour sortir.");
+        scanf("%d", &etu);
+        i = identifier(numEtu, nb, etu);
+    }
 
-}
-
-void effacerStage(int refStage[], int stagePourvu[]) //va mettre 1 parce stage devient pourvu et efface les etudiants
-{
-    
-}
-
-void effacerEtudiant(int etu) //efface les candidatures de l'etu qui a recu un stage
-{
-
+    if (i == -1)
+    {
+        printf("L'étudiant n'est pas reconnu, veuillez réessayer avec un numéro d'étudiant correct. ");
+        return;
+    }
+    printf("A quel stage voulez vous l'affecter : ");
+    scanf("%d", &stage);
+    int s = identifier(refstage, nb, stage);
+    if (i == -1)
+    {
+        printf("Le stage n'est pas reconnu, veuillez réessayer avec un numéro de stage correct. ");
+        return;
+    }
+    refStageEtu[i] = stage;
+    stages[s][0] = -1;
+    stagePourvu[s] = true;
 }
