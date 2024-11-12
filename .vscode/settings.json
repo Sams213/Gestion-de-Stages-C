@@ -5,5 +5,6 @@
     "*.vuerd": "json",
     "sae.h": "c",
     "stdio.h": "c"
-  }
+  },
+  "cmake.sourceDirectory": "${workspaceFolder}/home/UCA/cocaillot/ccls"
 }

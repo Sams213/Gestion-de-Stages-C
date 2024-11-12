@@ -263,22 +263,27 @@ void affecterStage(int refstage[], int refStageEtu[], int numEtu[], int nb, int 
     i = identifier(numEtu, nb, etu);
     while (i == -1)
     {
-        printf("L'étudiant n'est pas reconnu, veuillez réessayer avec un numéro d'étudiant correct.\nTapez -1 pour sortir.");
+        printf("L'étudiant n'est pas reconnu, veuillez réessayer avec un numéro d'étudiant correct.\nTapez -2 pour sortir.");
         scanf("%d", &etu);
         i = identifier(numEtu, nb, etu);
     }
 
-    if (i == -1)
+    if (i == -2)
     {
-        printf("L'étudiant n'est pas reconnu, veuillez réessayer avec un numéro d'étudiant correct. ");
         return;
     }
     printf("A quel stage voulez vous l'affecter : ");
     scanf("%d", &stage);
-    int s = identifier(refstage, nb, stage);
-    if (s == -1)
+    int s;
+    s = identifier(refstage, nb, stage);
+    while (s == -1)
     {
-        printf("Le stage n'est pas reconnu, veuillez réessayer avec un numéro de stage correct. ");
+        printf("Le stage n'est pas reconnu, veuillez réessayer avec un numéro de stage correct.\nTapez -2 pour sortir. Stage: ");
+        scanf("%d",&stage);
+        s = identifier(refstage, nb, stage);
+    }
+    if (i == -2)
+    {
         return;
     }
     refStageEtu[i] = stage;
@@ -297,4 +302,65 @@ void affecterStage(int refstage[], int refStageEtu[], int numEtu[], int nb, int 
 float moyenne(float n1, float n2, float n3)
 {
     return (n1 * 2 + n2 + n3) / 4;
+}
+
+void noteEtu(int numEtu[], int nb, float noteEtu[])
+{
+    int etu, i;
+    float note1, note2, note3, m;
+    printf("A quel étudiant voulez-vous affecter un stage : ");
+    scanf("%d", &etu);
+    i = identifier(numEtu, nb, etu);
+    while (i == -1)
+    {
+        printf("L'étudiant n'est pas reconnu, veuillez réessayer avec un numéro d'étudiant correct.\nTapez -2 pour sortir.");
+        scanf("%d", &etu);
+        i = identifier(numEtu, nb, etu);
+    }
+    if (i == -2)
+    {
+        return;
+    }
+    printf("Quel est la note d'entreprise de l'étudiant ?");
+    scanf("%f", &note1);
+    printf("Quel est la note du rapport de l'étudiant ?");
+    scanf("%f", &note2);
+    printf("Quel est la note de soutenance de l'étudiant?");
+    scanf("%f", &note3);
+
+    m = moyenne(note1, note2, note3);
+    noteEtu[i]=m;
+}
+
+int affichage(void){
+    int c,m,etu;
+    printf("Tapez 1 si vous etes etudiant et 2 si vous etes responsable");
+    scanf("%d",&m);
+    if(m==2){
+        printf("Que voulez vous afficher? \n");
+        printf("1. Tous les stages pourvus\n");
+        printf("2. tous les stages non pouvus\n");
+        printf("3. Liste des etudiants n'ayant pas de stage\n");
+        printf("4. Informations concernant le stage donne\n");
+        printf("5. Rechercher un stage\n");
+        scanf("%d",&c);
+        while(c>5 || c<1){
+            printf("Choix incorrecte. Retapez votre choix");
+            scanf("%d",&c);
+        }
+    }
+    if(m==1){
+        printf("Tapez votre numero etudiant: ");
+        scanf("%d",&etu);
+        printf("Que voulez vous afficher? \n");
+        printf("1. Tous les stags non pourvus\n");
+        printf("2. Toutes vos candidatures ou votre stage affecter si vous avez un stage\n");
+        printf("3. Afficher des stages selon un nombre de departement");
+        scanf("%d", &c);
+        while(c>3){
+            printf("Choix incorrecte. Retapez votre choix");
+            scanf("%d",&c);
+        }
+    }
+    return c;
 }
