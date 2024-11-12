@@ -332,10 +332,20 @@ void noteEtu(int numEtu[], int nb, float noteEtu[])
     noteEtu[i]=m;
 }
 
-int affichage(void){
-    int c,m,etu;
+int IdentifierPersonne(void){
+    int m;
     printf("Tapez 1 si vous etes etudiant et 2 si vous etes responsable");
     scanf("%d",&m);
+    while(m<1 || m>2){
+        printf("Erreur. Retapez 1 si vous etes etudiant et 2 si vous etes responsable.");
+        scanf("%d",&m);
+    }
+    return m;
+}
+
+int DemandeAffichageRespo(void){
+    int c,m,etu;
+    m=IdentifierPersonne;
     if(m==2){
         printf("Que voulez vous afficher? \n");
         printf("1. Tous les stages pourvus\n");
@@ -348,7 +358,13 @@ int affichage(void){
             printf("Choix incorrecte. Retapez votre choix");
             scanf("%d",&c);
         }
+        return c;
     }
+}
+
+int DemandeAffichageEtudiant(void){
+    int c,m,etu;
+    m=IdentifierPersonne();
     if(m==1){
         printf("Tapez votre numero etudiant: ");
         scanf("%d",&etu);
@@ -361,6 +377,12 @@ int affichage(void){
             printf("Choix incorrecte. Retapez votre choix");
             scanf("%d",&c);
         }
+        return c;
     }
-    return c;
+}
+
+void affichage(void){
+    int c;
+    c=DemandeAffichage();
+
 }
