@@ -1,7 +1,7 @@
 #include "sae.h"
 
 int identifier(int L[], int nb, int element)
-// identifier l'etudiant dans les donnes
+// identifier l'etudiant dans les données
 {
     int i = 0;
     while (i < nb)
@@ -31,13 +31,13 @@ void compteurStageEtu(int numEtu[], int compteur[], int etu, int nb)
 
 int rechercheL(int L[], int element, int nb)
 {
-    int i = 0;
-    for (i; i < nb; i++)
+    int i;
+    for (i=0; i < nb; i++)
     {
         if (L[i] > element)
             return i;
     }
-    return -1;
+    return i;
 }
 
 void decalerAGaucheLL(int (*L)[4], int col, int index)
@@ -59,7 +59,7 @@ void decalerADroiteL(int L[], int *nb, int index, int element)
     {
         for (int i = *nb; i > index; i--)
         {
-            L[i + 1] = L[i];
+            L[i] = L[i-1];
         }
         L[index] = element;
         (*nb) += 1;
@@ -77,7 +77,7 @@ void decalerADroiteLL(int (*stages)[4], int index, int nb)
     {
         for (int i = nb; i > index; i--)
         {
-            memcpy(stages[i + 1], stages[i], 4 * sizeof(int));
+            memcpy(stages[i], stages[i-1], 4 * sizeof(int));
         }
     }
     else
@@ -172,7 +172,9 @@ int remplirstage(int refStage[], int (*stageNumEtuCandid)[4], boolean stagePourv
         }
 
         int pos = rechercheL(refStage, ref, nb);
+
         decalerADroiteL(refStage, &nb, pos, ref);
+
         decalerADroiteLL(stageNumEtuCandid, pos, nb);
 
         dpt[i] = dp;
@@ -219,7 +221,6 @@ int remplirstage(int refStage[], int (*stageNumEtuCandid)[4], boolean stagePourv
         }
         fscanf(stage, "%d%d", &ref, &dp);
         i++;
-        nb++;
     }
     fclose(stage);
     return nb;
@@ -343,6 +344,7 @@ int IdentifierPersonne(void){
     return m;
 }
 
+/*
 int DemandeAffichageRespo(void){
     int c,m,etu;
     m=IdentifierPersonne;
@@ -386,3 +388,4 @@ void affichage(void){
     c=DemandeAffichage();
 
 }
+*/
