@@ -457,7 +457,7 @@ void AfficherInfoStage(int refStage[], int numEtu[], int (*stages)[4], boolean s
         }
     }
     else
-        printf("Stage Pourvu: \t%s", "non");
+        printf("Stage Pourvu: \t%s", "non\n");
 }
 
 void TriEtudiantSelonLeStagePourvu(int refStageFinal[], int refStage[], int numEtu[], int numEtuSelonStagePourvu[], int nbEtu, int nbStage)

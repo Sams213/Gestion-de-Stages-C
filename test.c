@@ -49,7 +49,7 @@ void testMdpAdmin(void)
 
 int main(void)
 {
-	test();
-	// testMdpAdmin();
+	// test();
+	testMdpAdmin();
 	return 0;
 }
