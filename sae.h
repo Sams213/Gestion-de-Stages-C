@@ -34,4 +34,4 @@ void AfficherStageNonPourvu(boolean stagePourvu[], int refStage[], int nbStage);
 void affecterStage(int refstage[], int refStageFinalEtu[], int numEtu[], int nb, int (*stages)[4], boolean stagePourvu[]);
 void AfficherEtudiantSansStage(int refStageFinal[], int numEtu[], int nb);
 void TriEtudiantSelonLeStagePourvu(int refStageFinal[], int refStage[], int numEtu[], int numEtuSelonStagePourvu[], int nbEtu, int nbStage);
-void AfficherInfoStage(int refStage[], int numEtu[], int (*stages)[4], boolean stagePourvu[], int numEtuSelonStagePourvu[], int nbStage);
+void AfficherInfoStage(int dpt[], int refStage[], int numEtu[], int (*stages)[4], boolean stagePourvu[], int numEtuSelonStagePourvu[], int nbStage);

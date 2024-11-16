@@ -25,7 +25,7 @@ void test(void)
 	// printListI(refStage_Trie, nbStage);
 	// printListI(numEtuSelonStageFinal, nbStage);
 
-	AfficherInfoStage(refStage_Trie, numDesEtutiants_Trie, stages, stagePourvu, numEtuSelonStageFinal, nbStage);
+	AfficherInfoStage(dpt, refStage_Trie, numDesEtutiants_Trie, stages, stagePourvu, numEtuSelonStageFinal, nbStage);
 
 	// printf("\n\n");
 	// printListF(notesfinal, nbEtu);

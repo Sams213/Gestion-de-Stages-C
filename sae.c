@@ -26,7 +26,7 @@ void compteurStageEtu(int numEtu[], int compteur[], int etu, int nb)
     if (i != -1)
         compteur[i] += 1;
     else
-        printf("L'étudiant n'est pas reconnu /// compteurStageEtu");
+        printf("L'etudiant %d n'est pas reconnu /// compteurStageEtu", etu);
 }
 
 int rechercheL(int L[], int element, int nb)
@@ -432,7 +432,7 @@ void AfficherEtudiantSansStage(int refStageFinal[], int numEtu[], int nb)
     printf("\n\n");
 }
 
-void AfficherInfoStage(int refStage[], int numEtu[], int (*stages)[4], boolean stagePourvu[], int numEtuSelonStagePourvu[], int nbStage)
+void AfficherInfoStage(int dpt[], int refStage[], int numEtu[], int (*stages)[4], boolean stagePourvu[], int numEtuSelonStagePourvu[], int nbStage)
 {
     int stage, s;
     printf("\nDe quel stage voulez vous voir les informations: ");
@@ -448,16 +448,23 @@ void AfficherInfoStage(int refStage[], int numEtu[], int (*stages)[4], boolean s
         }
         s = identifier(refStage, nbStage, stage);
     }
-
+    printf("\nDepartement:\t%d\n", dpt[s]);
     if (stagePourvu[s] == true)
     {
         {
-            printf("\nStage Pourvu:\t\t%s\n", "oui");
+            printf("Stage Pourvu:\t\t%s\n", "oui");
             printf("Etudiant affecte:\t%d\n", numEtuSelonStagePourvu[s]);
+            printf("");
         }
     }
     else
-        printf("Stage Pourvu: \t%s", "non");
+    {
+        printf("Stage Pourvu: \t%s\n", "non");
+        printf("Candidats au stage:\t");
+        for (int i = 1; i <= stages[s][0]; i++)
+            printf("%d\t", stages[s][i]);
+        printf("\n\n");
+    }
 }
 
 void TriEtudiantSelonLeStagePourvu(int refStageFinal[], int refStage[], int numEtu[], int numEtuSelonStagePourvu[], int nbEtu, int nbStage)
