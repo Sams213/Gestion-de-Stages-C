@@ -1,10 +1,12 @@
 {
   "files.associations": {
-    "*.php": "html",
     "*.erd": "json",
     "*.vuerd": "json",
+    "*.php": "html",
     "sae.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "chrono": "c",
+    "variant": "c"
   },
   "cmake.sourceDirectory": "${workspaceFolder}/home/UCA/cocaillot/ccls"
 }
