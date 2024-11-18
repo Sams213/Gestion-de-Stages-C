@@ -299,7 +299,7 @@ void rechercheDPTStage(int refstage[], int dpt[], int numEtu[], int (*stages)[4]
  * \param compteurStages Compteur des candidatures pour chaque stage.
  * \param stagePourvu Tableau indiquant si chaque stage est pourvu.
  */
-void candidater(int (*stages)[4], int (*stagesEtu)[3], int refStage[], int nbStage, int etu, int numEtu[], int nbEtu, int compteur[], int compteurStages[], boolean stagePourvu[]);
+void candidater(int (*stages)[4], int (*stagesEtu)[3], int refStage[], int nbStage, int etu, int numEtu[], int nbEtu, int compteur[], int compteurStages[], boolean stagePourvu[], int stageFinal[]);
 
 /*
  * \brief Échange deux valeurs de type float.

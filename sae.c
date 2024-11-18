@@ -611,7 +611,7 @@ void rechercheDPTStage(int refstage[], int dpt[], int numEtu[], int (*stages)[4]
     printf("\n");
 }
 
-void candidater(int (*stages)[4], int (*stagesEtu)[3], int refStage[], int nbStage, int etu, int numEtu[], int nbEtu, int compteur[], int compteurStages[], boolean stagePourvu[])
+void candidater(int (*stages)[4], int (*stagesEtu)[3], int refStage[], int nbStage, int etu, int numEtu[], int nbEtu, int compteur[], int compteurStages[], boolean stagePourvu[], int stageFinale[])
 {
     int stage, s, m;
     if (compteur[identifier(numEtu, nbEtu, etu)] >= 3)
@@ -637,8 +637,13 @@ void candidater(int (*stages)[4], int (*stagesEtu)[3], int refStage[], int nbSta
         printf("Ce stage possede 3 candidatures, il est complet.");
         return;
     }
+    m = identifier(numEtu, nbEtu, etu);
     // printf("\n%d\n",);
-
+    if (stageFinale{m} != -1)
+    {
+        printf("Vous etes deja affecter a un stage, vous ne pouvez plus candidater");
+        return;
+    }
     if (indecs(stages[s], stages[s][0] + 1, etu) != -1)
     {
         printf("Vous avez deja candidater a ce stage.\n");
@@ -646,7 +651,7 @@ void candidater(int (*stages)[4], int (*stagesEtu)[3], int refStage[], int nbSta
     }
     (compteurStages[s])++;
     stages[s][stages[s][0]] = etu;
-    m = identifier(numEtu, nbEtu, etu);
+
     stagesEtu[m][compteur[m]] = stage;
     (compteur[m])++;
     (stages[s][0])++;
@@ -893,7 +898,7 @@ void menuEtudiant(int refStage[], int numEtu[], int dpt[], int compteur[], int r
             clear();
             break;
         case 4:
-            candidater(stages, stagesEtu, refStage, nbStage, etu, numEtu, nbEtu, compteur, compteur, stagePourvu);
+            candidater(stages, stagesEtu, refStage, nbStage, etu, numEtu, nbEtu, compteur, compteur, stagePourvu, refStageFinal);
             printf("\nAppuyez sur une touche pour continuer...");
             getchar();
             clear();
@@ -961,4 +966,6 @@ void save(float noteEtu[], int refStageFinalEtutiant[], int numDesEtutiants_Trie
                 fprintf(stage, "%d\n", stages[i][x]);
         }
     }
+    fclose(etudiant);
+    fclose(stage);
 }
