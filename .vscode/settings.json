@@ -8,5 +8,6 @@
     "chrono": "c",
     "variant": "c"
   },
-  "cmake.sourceDirectory": "${workspaceFolder}/home/UCA/cocaillot/ccls"
+  "cmake.sourceDirectory": "${workspaceFolder}/home/UCA/cocaillot/ccls",
+  "C_Cpp.errorSquiggles": "disabled"
 }
