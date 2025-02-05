@@ -1,0 +1,18 @@
+On a mis en place des listes qui étaient toutes reliés par indice à d'autres listes,
+lorsqu'on modifiait une liste (ajouter/supprimer une entrée), il fallait veiller à 
+bien modifier les indices de toutes les données correspondantes.
+De plus on a pu mettre en place des listes triées afin de faciliter et d'optimiser 
+la recherche d'element dans les listes.
+
+On a pu mettre en place une fonctionnalité de mot de passe responsable stockés 
+dans un fichier, afin de securiser l'accés aux droits administrateurs,
+on a aussi créer beaucoup de fonctions afin de tester notre code, la multitude de types 
+des éléments a nécessité la création de plusieurs fontions adaptés au type des elements
+manipulés.
+
+Les jeux d'essais pevent etre trouvés dans les fichiers textesdu depot, on a pu tester 
+les différentes fonctionnalités de notre application avec ces fichiers.
+
+Quant a  la description détaillé de toutes les fonctionnalités, 
+je vous invite à consulter la documentation Doxygen contenu dans le dossier html, 
+puis dans la page index.html.
