@@ -36,4 +36,4 @@ Le but était de créer une application permmettant de gérer des stages d'étud
    ./sae
    ```
 
-
+Ce projet a été réalisé en binôme.
