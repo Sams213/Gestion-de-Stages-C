@@ -9,3 +9,4 @@ test.o: test.c
 
 clean: 
 	rm -f *.o sae
+	

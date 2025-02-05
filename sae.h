@@ -393,7 +393,7 @@ void clear(void);
 /*
  * \brief Menu principal pour les étudiants.
  *
- * \param refStage Tableau des références des stages.
+ * \param refStage Tableau des références des stages
  * \param numEtu Tableau des numéros des étudiants.
  * \param dpt Tableau des départements associés aux stages.
  * \param compteur Compteur des candidatures des étudiants.

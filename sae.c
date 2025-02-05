@@ -589,7 +589,7 @@ void rechercheDPTStage(int refstage[], int dpt[], int numEtu[], int (*stages)[4]
     scanf("%d", &departement);
     while (departement != -1)
     {
-        system("cls");
+        clear();
         t = 0;
         for (int i = 0; i < nbStage; i++)
         {
@@ -639,7 +639,7 @@ void candidater(int (*stages)[4], int (*stagesEtu)[3], int refStage[], int nbSta
     }
     m = identifier(numEtu, nbEtu, etu);
     // printf("\n%d\n",);
-    if (stageFinale{m} != -1)
+    if (stageFinale[m] != -1)
     {
         printf("Vous etes deja affecter a un stage, vous ne pouvez plus candidater");
         return;
